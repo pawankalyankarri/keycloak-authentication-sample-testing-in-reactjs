@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import keycloak from "@/KeyCloak";
+
 
 export function LoginForm({
   className,
@@ -39,8 +41,11 @@ export function LoginForm({
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       // console.log(formValues)
-      const queryParams = new URLSearchParams(formValues).toString();
-      navigate(`auth/callback?${queryParams}`);
+      keycloak.login({
+      redirectUri: "http://localhost:5173/callback",
+    });
+      // const queryParams = new URLSearchParams(formValues).toString();
+      // navigate(`auth/callback?${queryParams}`);
       
   } 
   return (
